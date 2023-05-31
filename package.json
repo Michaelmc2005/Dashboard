@@ -1,0 +1,21 @@
+{
+  "name": "noding-it-up",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "main": "./main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.1.1",
+    "express": "^4.18.2",
+    "isomorphic-fetch": "^3.0.0",
+    "mongodb": "^5.5.0",
+    "node-fetch": "^3.3.1",
+    "openai": "^3.2.1"
+  }
+}

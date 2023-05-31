@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socratique Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <div id="dashboard-heading">Dashboard</div>
+  <style>
+    #chat-heading,
+    #snippets-heading,
+    #lab-heading {
+      background: linear-gradient(to right, #224499, #66ccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="site-container">
+    <h1 id="chat-heading">Chat with Socratique</h1>
+    <div id="chat-container">
+      <div id="chat-messages">
+        <!-- Chat messages will be dynamically added here -->
+      </div>
+      <div id="user-input-container">
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="submit-button">Send</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="site-container2">
+    <h1 id="snippets-heading">Snippets</h1>
+    <div class="icon-container">
+      <div class="icon-box">
+        <i class="fas fa-code"></i>
+        <p>Wikipedia.org</p>
+      </div>
+      <div class="icon-box">
+        <i class="fas fa-code"></i>
+        <p>NYtimes.com</p>
+      </div>
+      <div class="icon-box">
+        <i class="fas fa-code"></i>
+        <p>NationalGeographic.com</p>
+      </div>
+    </div>
+  </div>
+  
+  <div id="site-container3">
+    <h1 id="lab-heading">Your Labs</h1>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
