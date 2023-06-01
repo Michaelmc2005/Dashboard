@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "main": "./main.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +12,7 @@
   "dependencies": {
     "dotenv": "^16.1.1",
     "express": "^4.18.2",
+    "firebase": "^9.22.1",
     "isomorphic-fetch": "^3.0.0",
     "mongodb": "^5.5.0",
     "node-fetch": "^3.3.1",

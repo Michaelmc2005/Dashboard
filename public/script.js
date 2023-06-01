@@ -1,9 +1,69 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyAoSqKTUrNCvj-03W1tJF_izqRGDnfR5nY",
+  authDomain: "socratique-51535.firebaseapp.com",
+  projectId: "socratique-51535",
+  storageBucket: "socratique-51535.appspot.com",
+  messagingSenderId: "13244664859",
+  appId: "1:13244664859:web:c690d586e20f67e7b6bcbe",
+  measurementId: "G-XNKE05VS45"
+};
+firebase.initializeApp(firebaseConfig);
+
 document.addEventListener('DOMContentLoaded', () => {
   const apiUrl = 'https://api.openai.com/v1/chat/completions';
-  const classApiUrl = 'http://localhost:3035/api/classes';
+  const classApiUrl = '/api/classes';
   const chatContainer = document.getElementById('chat-messages');
   const userInput = document.getElementById('user-input');
   const submitButton = document.getElementById('submit-button');
+  const loginButton = document.getElementById('login-button');
+    const greetingContainer = document.getElementById('greeting-container');
+
+    let userName = ''; // Variable to hold user name
+
+    function setGreeting() {
+      const date = new Date();
+      const hour = date.getHours();
+      let greeting = 'Good ';
+    
+      if (hour < 12) {
+        greeting += 'Morning';
+      } else if (hour < 18) {
+        greeting += 'Afternoon';
+      } else {
+        greeting += 'Evening';
+      }
+    
+      // Add user name to the greeting if it exists
+      if (userName) {
+        greeting += ', ' + userName;
+      }
+    
+      greetingContainer.textContent = greeting;
+    }
+    
+  setGreeting(); // Set initial greeting
+
+  loginButton.addEventListener('click', () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        console.log('Logged in user:', user);
+        
+        // Update user name - split full name into parts, and take the first part
+        const fullName = user.displayName;
+        const nameParts = fullName.split(' ');
+        userName = nameParts[0]; // Take just the first name
+        
+        loginButton.style.display = 'none'; // Hide login button
+        setGreeting(); // Update greeting after login
+        fetchClasses();
+        // Redirect or perform other actions after login
+      })
+      .catch((error) => {
+        console.error('Login error:', error);
+      });
+  });
 
   submitButton.addEventListener('click', handleUserInput);
   userInput.addEventListener('keypress', (event) => {
@@ -89,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Received classes:', classes);
   
     const siteContainer = document.getElementById('site-container3');
-    siteContainer.innerHTML = ''; // Clear previous contents
+    siteContainer.innerHTML = ''; 
   
     const heading = document.createElement('h2');
     heading.textContent = 'Your Labs';
@@ -123,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
-  
 
-  fetchClasses();
+  
 });

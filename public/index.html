@@ -5,6 +5,9 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <div id="dashboard-heading">Dashboard</div>
+  <div id="greeting-container"></div>
+
+  
   <style>
     #chat-heading,
     #snippets-heading,
@@ -17,11 +20,11 @@
   </style>
 </head>
 <body>
+  <button id="login-button">Login</button>
   <div id="site-container">
     <h1 id="chat-heading">Chat with Socratique</h1>
     <div id="chat-container">
       <div id="chat-messages">
-        <!-- Chat messages will be dynamically added here -->
       </div>
       <div id="user-input-container">
         <input type="text" id="user-input" placeholder="Type your message...">
@@ -52,6 +55,15 @@
     <h1 id="lab-heading">Your Labs</h1>
   </div>
 
+<!-- Firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore-compat.js"></script>
+
+<!-- JavaScript code -->
+<script src="script.js"></script>
+
+  <!-- JavaScript code -->
   <script src="script.js"></script>
 </body>
 </html>

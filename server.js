@@ -6,12 +6,10 @@ const path = require('path');
 dotenv.config();
 
 const app = express();
-const port = 3035;
+const port = 4105;
 
-// MongoDB connection details
 const uri = process.env.MONGODB_URI;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -22,11 +20,9 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server (optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log("Pinged deployment. You successfully connected to MongoDB!");
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);
   }
@@ -37,7 +33,7 @@ run();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Retrieve classes from the MongoDB database
+// Retrieve classes from the database
 app.get('/api/classes', async (req, res) => {
   try {
     const db = client.db('Socratique');
@@ -53,6 +49,7 @@ app.get('/api/classes', async (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
 app.get('/api/openai-key', (req, res) => {
   const openAIKey = process.env.OPENAI_API_KEY;
   if (!openAIKey) {
@@ -62,7 +59,24 @@ app.get('/api/openai-key', (req, res) => {
   res.json({ apiKey: openAIKey });
 });
 
-
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// Clean up function to close server and MongoDB client
+function cleanup() {
+  console.log('Closing server...');
+  server.close(() => {
+    console.log('Server closed');
+
+    console.log('Closing MongoDB client...');
+    client.close(false, () => {
+      console.log('MongoDB client closed');
+      process.exit(0);
+    });
+  });
+}
+
+// Listen for interrupt and terminate signals
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
