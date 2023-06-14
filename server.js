@@ -1,51 +1,38 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const { MongoClient, ServerApiVersion } = require('mongodb');
 const path = require('path');
 
 dotenv.config();
 
 const app = express();
-const port = 4105;
-
-const uri = process.env.MONGODB_URI;
-
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
-
-async function run() {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged deployment. You successfully connected to MongoDB!");
-  } catch (error) {
-    console.error('Failed to connect to MongoDB:', error);
-  }
-}
-
-run();
+const port = 4305;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Retrieve classes from the database
+const admin = require('firebase-admin');
+admin.initializeApp({
+  credential: admin.credential.applicationDefault()
+});
+
+
+
 app.get('/api/classes', async (req, res) => {
   try {
-    const db = client.db('Socratique');
-    const collection = db.collection('Classes');
-    const classes = await collection.find().toArray();
-    res.json({ classes });
+    const userId = req.user.uid;
+    const classes = await db.collection('users').doc(userId).collection('classes').get();
+    const classesData = [];
+    classes.forEach((doc) => {
+      classesData.push(doc.data());
+    });
+    res.json({ classes: classesData });
   } catch (error) {
     console.error('Failed to fetch classes:', error);
     res.status(500).json({ error: 'Failed to fetch classes from the server.' });
   }
 });
+
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -69,12 +56,7 @@ function cleanup() {
   console.log('Closing server...');
   server.close(() => {
     console.log('Server closed');
-
-    console.log('Closing MongoDB client...');
-    client.close(false, () => {
-      console.log('MongoDB client closed');
-      process.exit(0);
-    });
+    process.exit(0);
   });
 }
 

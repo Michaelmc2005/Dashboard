@@ -21,6 +21,18 @@
 </head>
 <body>
   <button id="login-button">Login</button>
+  <button id="logout-button" style="display:none">Logout</button>
+  <button id="joinClass-button">Join Class</button>
+<div id="joinModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Join a class</h2>
+    <input id="classCode" type="text" placeholder="Enter class code">
+    <button id="submitClassCode">Join</button>
+  </div>
+</div>
+
+  <button id="createClass-button">Create Class</button>
   <div id="site-container">
     <h1 id="chat-heading">Chat with Socratique</h1>
     <div id="chat-container">
@@ -53,17 +65,29 @@
   
   <div id="site-container3">
     <h1 id="lab-heading">Your Labs</h1>
+    <div id="class-boxes" hidden = "true"></div> <!-- Add this line -->
   </div>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create a new class</h2>
+      <input id="className" type="text" placeholder="Enter class name">
+      <button id="submitClassName">Submit</button>
+    </div>
+  </div>
+  
+  
 
 <!-- Firebase scripts -->
 <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore-compat.js"></script>
 
-<!-- JavaScript code -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
 <script src="script.js"></script>
 
+
   <!-- JavaScript code -->
-  <script src="script.js"></script>
+    
 </body>
 </html>
