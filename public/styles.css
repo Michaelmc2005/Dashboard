@@ -76,12 +76,13 @@ body::before {
   text-align: center;
   font-size: 40px;
   font-weight: bold;
-  margin-bottom: 52%;
+  margin-bottom: 48%;
   font-family: "Your Futuristic Modern Font", Arial, sans-serif;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 3px;
-  position: fixed;
+  justify-content: center;
+  margin-left: 45%;
 }
 
 #login-button {
